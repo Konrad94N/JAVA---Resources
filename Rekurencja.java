@@ -1,80 +1,82 @@
-public class Rekurencja {
+public class Recursion {
 
-    public static int sumaRekurencyjna(int n){
+    public static int recursionSum(int n){
         if(n>0) {
-            return n + sumaRekurencyjna(n-1);
+            return n + recursionSum(n-1);
         } else {
             return 0;
         }
     }
     /*
-    LUB NAWET:
-        public static int sumaRekurencja(int n) {
-            return n>0? n+sumaRekurencja(n-1) : 0;
+    OR EVEN:
+        public static int recursionSum(int n) {
+            return n>0? n+recursionSum(n-1) : 0;
         }
-        --> Uźycie tzw: operatora trójargumentowego (ternary operator)
+        --> We use what is called: ternary operator [POLISH: operator trójargumentowy]
      */
 
-    public static int sumaIteracja(int n) {
-        int suma = 0;
+    public static int iterationSum(int n) {
+        int sum = 0;
         while(n > 0) {
-            suma = suma+n;
+            sum = sum+n;
             n--;
         }
-        return suma;
+        return sum;
     }
 }
 
 /*
-Opisowy sposób działania powyższej metody rekurencyjnej przy argumencie n=3:
+Here is the description of the above recursive method work with argument n=3:
 
-sumaRekurencja(3);
+recursionSum(3);
 
-3 + sumaRekurencja(2);
+3 + recursionSum(2);
 
-sumaRekurencja(2);
+recursionSum(2);
 
-3 + 2 + sumaRekurencja(1);
+3 + 2 + recursionSum(1);
 
-sumaRekurencja(1);
+recursionSum(1);
 
-3 + 2 + 1 + sumaRekurencja(0);
+3 + 2 + 1 + recursionSum(0);
 
-sumaRekurencja(0);
+recursionSum(0);
 
 3 + 2 + 1 + 0
 
-sumaRekurencja(1);
+recursionSum(1);
 
 3 + 2 + 1
 
-sumaRekurencja(2);
+recursionSum(2);
 
 3 + 3
 
-sumaRekurencja(3);
+recursionSum(3);
 
 return 6
 
-Widać dokładnie różnicę, pomiędzy użyciem standardowej Iteracji oraz Rekurencji. Kolejne wartości wywołań
-są odkładane na Stosie i następnie sumowane od końca. W gruncie rzeczy nie otrzymujemy działania:
+Here is where we can clearly see the difference between using Recursion and Iteration. Every next value
+is landing on the Stack and then these values are being summarized from the end to the beginning of the 'array'. 
+Actually, at the end we do not receive:
 3 + 2 + 1 + 0 = 6
-ale
+but
 0 + 1 + 2 + 3 = 6
 
 *
 *
 *
 
-Zbiór ważnych informacji:
+Collection of important info:
 
-1) Rekurencja może przyjąć strukturę "drzewa", a każde kolejne wywołanie jest odkładane na stosie. Stąd może być
-niezwykle "pamięciożerna" oraz wykonywać się bardzo długo dla dużych liczb
+1) Recursion calls might create the shape of a "Tree", and every next call lands on the Stack. This is where Recursion
+appears to be very "memory-consuming". Recursive operations might also take much more time while working
+on large numbers.
 
-2) Używana jest w niektórych specyficznych warunkchac oraz Algorytmach (np.: Quick Sort)
+2) Recursion might be used in some specific tasks or certain Algorithms (for example: Quick Sort)
 
-3) Każdą metodę opisaną Rekurencyjnie można przepisać z użyciem Iteracji
+3) Every Recursive method might be re-written using Iteration
 
-4) Należy uważać, aby nie zapętlić metody Rekurencyjnej w nieskończoność
+4) WARNING: Carelessly written Recursion might create an endless loop
 
  */
