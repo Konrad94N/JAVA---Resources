@@ -1,0 +1,48 @@
+POLSIH translations:
+1) Stack memory - Stos
+2) Heap memory - Sterta
+
+
+
+Description and differences:
+
+
+I) Stack memory
+This is the part of memory that stores local variables (int, float, references etc) and 
+function calls of a certain Thread [POLISH: ramki wywołań tj. wywołanie metod danego wątku].
+
+Stack memory uses references to save the memory and avoid creating the same variable twice.
+When we create:
+int a=1;
+int b=1;
+return a==b ? 1:0;
+--> We don't actually compare "1" and "1", but 'a' and 'b' reference address. 
+If these references are the same, then these values must be the same.
+
+Stack is a structure that also store elements in LIFO(Last In First out).
+
+Recursive methods might fill the Stack memory very quickly.
+
+Every thread has its own Stack memory to use.
+
+Out of Stack memory Error message: java.lang.StackOverFlowError.
+
+
+
+II) Heap memory
+This part of memory contains EVERY created Object (String, Array, Object etc) and static variables
+(set while starting a programm). Dynamic variables will also end up here, but only after running
+a programm.
+
+The access to the Heap is possible through references, which means:
+--> pointing out a certain memory cell by giving its reference address
+
+Out of Heap memory Error message: java.lang.OutOfMemoryError.
+
+
+
+III) Differences
+Stack memory size is a lot lesser than the Heap memory.
+
+Stack memory is, lets say, more 'private'. What lands on the Stack is visible only for the
+owner of a Thread, while Heap is a source available for all Threads.
