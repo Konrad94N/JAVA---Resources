@@ -4,19 +4,21 @@
  *
  */
 
+/*
+ * MargeSort is useful especially because it provides 
+ * concurrency - after splitting main table, each 
+ * new table might be 'splitted' and 'merged' with 
+ * another Thread or even another machine. 
+ * 
+ * MergeSort is very 'memory-consuming' (because of all the
+ * tables we need to allocate to carry MergeSort process),
+ *  but it also provides pretty impressive sorting time 
+ * of (O(n)) where n = tab1.length+tab2.length
+ */
+
 public class MergeSort {
 	
 	/*
-	 * MargeSort is useful especially because it provides 
-	 * concurrency - after splitting main table, each 
-	 * new table might be 'splitted' and 'merged' with 
-	 * another Thread or even another machine. 
-	 * 
-	 * MergeSort is very 'memory-consuming' (because of all the
-	 * tables we need to allocate to carry MergeSort process),
-	 *  but it also provides pretty impressive sorting time 
-	 * of (O(n)) where n = tab1.length+tab2.length
-	 * 
 	 * Our Algorithm provides Ascending order
 	 */
 	
