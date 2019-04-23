@@ -1,0 +1,95 @@
+/**
+ *
+ *  @author Niczyporuk Konrad
+ *
+ */
+
+public class MergeSort {
+	
+	/*
+	 * MargeSort is useful especially because it provides 
+	 * concurrency - after splitting main table, each 
+	 * new table might be 'splitted' and 'merged' with 
+	 * another Thread or even another machine. 
+	 * 
+	 * MergeSort is very 'memory-consuming' (because of all the
+	 * tables we need to allocate to carry MergeSort process),
+	 *  but it also provides pretty impressive sorting time 
+	 * of (O(n)) where n = tab1.length+tab2.length
+	 * 
+	 * Our Algorithm provides Ascending order
+	 */
+	
+	public static int[] mergeSort(int[] tab) {
+		/*
+		 * This 'if' provides mergeSort to actually begin after
+		 * splitting the basic table into one-element pieces.
+		 * Why do we need that? Look at 'merge' method description.
+		 */
+		if(tab.length==1) {
+			return tab;
+		}
+		else {
+			int[][] tabPartition = MergeSort.partition(tab);
+			int[] tab1 = MergeSort.mergeSort(tabPartition[0]);
+			int[] tab2 = MergeSort.mergeSort(tabPartition[1]);
+			return MergeSort.merge(tab1,tab2);
+		}
+	}
+	
+	/*
+	 * Partition simply splits our main table into smaller pieces,
+	 * either equal (if tab.length is even) or into two tabs of
+	 * (floor)tab.length/2 and (roof)tab.length/2. 
+	 * 
+	 * WARNING: We don't really need to consider one-element table
+	 * here as our Sorting method doesn't allow such situation
+	 */
+	private static int[][] partition(int[] tab) {
+		int[][] tabPartition = new int[2][];
+		int[] tab1 = new int[(int)(tab.length/2)];
+		int[] tab2 = new int[tab.length-(int)(tab.length/2)];
+		for(int i=0; i<tab.length; i++) {
+			if(i<tab.length/2) {
+				tab1[i]=tab[i];
+			}
+			else {
+				tab2[i-(int)(tab.length/2)]=tab[i];
+			}
+		}
+		tabPartition[0]=tab1;
+		tabPartition[1]=tab2;
+		return tabPartition;
+	}
+	
+	/*
+	 * We assume that our 'merge' method takes two pre-sorted tables.
+	 * It is actually provided by the idea that we basically split
+	 * the main table into smaller pieces until we get one-element tables,
+	 * so actually at the very beginning of sorting our 'merge' really
+	 * gets sorted tables (one-piece table is always sorted).
+	 */
+	private static int[] merge(int[] tab1, int[] tab2) {
+		int[] tab = new int[tab1.length+tab2.length];
+		int tab1Count=0,tab2Count=0;
+		while((tab1Count+tab2Count)<(tab1.length+tab2.length)) {
+			if(tab1Count>=tab1.length) {
+				tab[tab1Count+tab2Count]=tab2[tab2Count];
+				tab2Count+=1;
+			}
+			else if(tab2Count>=tab2.length) {
+				tab[tab1Count+tab2Count]=tab1[tab1Count];
+				tab1Count+=1;
+			}
+			else if(tab1[tab1Count]<=tab2[tab2Count]) {
+				tab[tab1Count+tab2Count]=tab1[tab1Count];
+				tab1Count+=1;
+			}
+			else {
+				tab[tab1Count+tab2Count]=tab2[tab2Count];
+				tab2Count+=1;
+			}
+		}
+		return tab;
+	}
+}
