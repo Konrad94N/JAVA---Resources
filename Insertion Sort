@@ -1,0 +1,81 @@
+/**
+ *
+ *  @author Niczyporuk Konrad
+ *
+ */
+ 
+ /*
+ Just a class with methods allowing us to sort a table of Integers using InsertionSort (Asc or Desc).
+
+Insertion Sort has pretty bad worst-case time (O(n2)), however it can be useful for:
+
+    1) Small-sized problems
+    2) When the table is nearly-sorted (as it is adaptive to the amount of 'work to do')
+
+IMPORTANT: As basic operations for InsertionSort are 'comparison' and 'swap', I used a swap method that doesn't need to create extra variable.
+*/
+
+package Searching;
+
+public class InsertionSort {
+	/*
+	 * Static value that can show us the number of operations after every Sort
+	 * IMPORTANT! It shows only value from the latest Sort
+	 */
+	private static int operationCount;
+	
+	//Ascending SORT - argument is just a table to be sorted, return sorted table
+	public static int[] sortAsc(int[] tabToSort) {
+		operationCount=0;
+		int len = tabToSort.length;
+		if(len<=1) return tabToSort;
+		int iter=1;
+		while(iter<len) {
+			if(tabToSort[iter]<tabToSort[iter-1]) {
+				InsertionSort.swap(iter, tabToSort);
+				if(iter>1) iter-=1;
+				else iter+=1;
+			}
+			else {
+				iter+=1;
+			}
+		}
+		return tabToSort;
+	}
+	
+	//Descending SORT - argument is just a table to be sorted, return sorted table
+	public static int[] sortDesc(int[] tabToSort) {
+		operationCount=0;
+		int len = tabToSort.length;
+		if(len<=1) return tabToSort;
+		int iter=1;
+		while(iter<len) {
+			if(tabToSort[iter]>tabToSort[iter-1]) {
+				InsertionSort.swap(iter, tabToSort);
+				if(iter>1) iter-=1;
+				else iter+=1;
+			}
+			else {
+				iter+=1;
+			}
+		}
+		return tabToSort;
+	}
+	
+	/*
+	 * Helpful swap - we use it every time we find two values that
+	 * are next to each other and are not sorted in specific order
+	 * IMPORTANT! Uses 'swap' method without creating an extra variable
+	 */
+	private static void swap(int index, int[] tabToSwap) {
+		tabToSwap[index-1]+=tabToSwap[index];
+		tabToSwap[index] = tabToSwap[index-1] - tabToSwap[index];
+		tabToSwap[index-1] = tabToSwap[index-1] - tabToSwap[index];
+		operationCount += 1;
+	}
+	
+	//Just getter for operationCount
+	public static int getOperationCount() {
+		return operationCount;
+	}
+}
