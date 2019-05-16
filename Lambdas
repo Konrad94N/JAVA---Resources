@@ -18,6 +18,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 		/*
 		 * First place to use Lambdas: it represents Functional Interface
 		 * method and is strictly connected with particular Functional
@@ -38,6 +40,8 @@ public class Main {
 		 */
 		Functional<String> implemented = s -> "1."+s+"\n2."+s;
 		System.out.println("\n"+implemented.something("lambdas rlz!"));
+		
+		
 		/*
 		 * Lets take a little break here. If you followed the code properly,
 		 * you've probably noticed some mysterious Interface 'Function' at 
@@ -97,6 +101,8 @@ public class Main {
 		/*
 		 * 
 		 */
+		 
+		 
 		/*
 		 * Here I would like to mention another Java mechanism which
 		 * isn't really a Lambda, but takes a lot from Lambdas idea.
@@ -145,10 +151,14 @@ public class Main {
 
 }
 
+
+
 //----- Functional -- Interface
 public interface Functional<T> {
 	public T something(T obj);
 }
+
+
 
 //----- Car -- Class
 public class Car {
