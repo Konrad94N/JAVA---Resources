@@ -1,0 +1,186 @@
+/*
+ * For easier understanding some might say that Lambdas are just methods
+ * hidden under variables, but such definition isn't really accurate
+ * and might be misleading. 
+ * Lambdas are rather an implementation of Functional Interface.
+ * Such interface has only one method and to be more specific -
+ * Lambdas represent this particular method. 
+ * This is one of their crucial usage - to make the code 
+ * cleaner and shorter.
+ * 
+ * Lambdas are also vital part of 'streams' since Java 8 
+ * (right here the term 'streams' represents Java's idea
+ * to give 'functional' touch to it's natural 'objective' programming
+ * style - I will develop 'streams' topic in another material).
+ */
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		/*
+		 * First place to use Lambdas: it represents Functional Interface
+		 * method and is strictly connected with particular Functional
+		 * Interface instance.
+		 */
+		Function<Double,Double> lambda = x -> x * x;
+		System.out.println("1.Applied lambda: "+lambda.apply(2d));
+		System.out.println("2.Applied lambda: "+lambda.apply(4d)+"\n");
+		/*
+		 * Second use: as a method argument.
+		 * (Check out 'lambdaArg' method implementation below)
+		 */
+		Main.lambdaArg(lambda, 8.0);
+		/*
+		 * Third use: as implementation of Functional Interface of
+		 * our own - it doesn't have to be Java provided structure. 
+		 * (Check out 'Functional' Interface code below)
+		 */
+		Functional<String> implemented = s -> "1."+s+"\n2."+s;
+		System.out.println("\n"+implemented.something("lambdas rlz!"));
+		/*
+		 * Lets take a little break here. If you followed the code properly,
+		 * you've probably noticed some mysterious Interface 'Function' at 
+		 * some point so far. 
+		 * This is one of 'Functional Interfaces' provided by Java in package
+		 * 'java.util.function'. Here are some of the most important among these:
+		 */
+		/*
+		 * --> 1 <--
+		 * Function<T,R> - contains 'apply' method which takes instance of 
+		 * class 'T' and returns instance of class 'R'.
+		 */
+		Function<Integer, Long> function = x -> {
+		    if (x != null && x % 2 == 0) {
+		        return (long) x * x;
+		    }
+		    else {
+		        return 123L;
+		    }
+		};
+		System.out.println("\nFunction for 4: "+function.apply(4));
+		System.out.println("Function for 3: "+function.apply(3));
+		/*
+		 * --> 2 <--
+		 * Consumer<T> - contains 'accept' method which just takes instance
+		 * of class 'T' and doesn't return anything.
+		 * (There also is a BiConsumer<T,R> Interface which takes two
+		 * instances of chosen classes and doesn't return anything as well).
+		 */
+		Consumer<Integer> consumer = x -> System.out.println("\nNumber is: "+x);
+		consumer.accept(10);
+		/*
+		 * --> 3 <--
+		 * Predicate<T> - contains 'test' method which takes instance of
+		 * class 'T' and returns a flag. This Interface might easily replace
+		 * 'Checker'.
+		 * Our example checks if given Integer is even (true) or
+		 * odd (false).
+		 */
+		Predicate<Integer> predicate = x -> x%2==0;
+		System.out.println("\nPredicate for 2: "+predicate.test(2));
+		System.out.println("Predicate for 3: "+predicate.test(3));
+		/*
+		 * --> 4 <--
+		 * Supplier<T> - contains 'get' method which doesn't take
+		 * anything as an argument and returns instance of class 'T'.
+		 */
+		Supplier<Double> supplier = () -> 10.0;
+		System.out.println("\nSupplier supplies ten: "+supplier.get());
+		/*
+		 * --> 5 <--
+		 * UnaryOperator<T> - specific 'Function<T,R>' Interface. It
+		 * takes and returns instances of the same class 'T'.
+		 */
+		UnaryOperator<Double> unaryOperator = x -> x+x;
+		System.out.println("\nUnaryOperator: "+unaryOperator.apply(20.0));
+		/*
+		 * 
+		 */
+		/*
+		 * Here I would like to mention another Java mechanism which
+		 * isn't really a Lambda, but takes a lot from Lambdas idea.
+		 * 
+		 * Along with Lambdas, which are strictly connected with the
+		 * idea of representing a method by a variable, Java developed
+		 * another mechanism that allows to assign specific method to
+		 * certain Functional Interface instance.
+		 * What we talk about is '::' symbol, which allows reference
+		 * to certain method from a class and assigning this method to
+		 * Functional Interface instance - this is actually another 
+		 * way to implement Functional Interface (we assign chosen 
+		 * method to method of Functional Interface instance).
+		 * 
+		 * HEY! Notice that class we are 'taking' method from doesn't
+		 * have to be Functional Interface. Our example class 'Car' has
+		 * three different methods, but we don't have to assign all of
+		 * them.
+		 * (Check out 'Car' Class implementation below)
+		 */
+		Supplier<Car> createCar = Car::new;
+		/*
+		 * An extra functionality - as Constructors are actually methods,
+		 * we can assign an empty Constructor to Functional Interface 
+		 * instance (Supplier)!
+		 */		
+		Supplier<Integer> ourCarAge = createCar.get()::carsAge;
+		//We use 'get()' to lift our Car instance out of Supplier
+		UnaryOperator<String> ourCarMakesSound = createCar.get()::makeSound;
+		System.out.println("\n"+ourCarAge.get());
+		System.out.println(ourCarMakesSound.apply("Wr"));
+		/*
+		 * Supplier and UnaryOperator are used because of 'carsAge' and
+		 * 'makeSound' specifics. For 'coolStuff' we would use 'Consumer'
+		 * Interface as it takes some class instance and doesn't return
+		 * anything - just like 'coolStuff' takes 'String' instance
+		 * and returns nothing [void].
+		 * If You feel confused, please, check out above descriptions 
+		 * of some Functional Interfaces provided by Java.
+		 */
+	}
+	
+	public static void lambdaArg(Function lambda, double var) {
+		System.out.println("Variable '"+var+"' power '2' using lambda as an argument: "+lambda.apply(var));
+	}
+
+}
+
+//----- Functional -- Interface
+public interface Functional<T> {
+	public T something(T obj);
+}
+
+//----- Car -- Class
+public class Car {
+	private String color="red";
+	private int prodYear=1995;
+	
+	public Car() {
+		
+	}
+	public Car(String color, int prodYear) {
+		this.color=color;
+		this.prodYear=prodYear;
+	}
+	
+	public int carsAge(){
+		return Calendar.getInstance().get(Calendar.YEAR) - this.prodYear;
+	}
+	public String makeSound(String letter) {
+		return letter+letter+letter+letter+"!";
+	}
+	public void coolStuff(String cool) {
+		System.out.println("What is cool? Cool is: "+cool);
+	}
+	
+	public String toString() {
+		return "Car is "+this.carsAge()+" years old and has a cool "+this.color+" color.";
+	}
+
+	public String getColor() {
+		return color;
+	}
+	public int getProdYear() {
+		return prodYear;
+	}
+}
