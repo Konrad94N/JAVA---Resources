@@ -1,0 +1,109 @@
+/*
+ * Here I will present some easy way to get all of Set Subsets
+ * by using binary representation and operations connected to it.
+ * 
+ * WATCH OUT: My implementation assumes, that all of Set elements 
+ * are of the same Type.
+ */
+
+public class AllSetSubsets<T> {
+	private List<List<T>> subsets = new ArrayList<>();
+
+	public void searchSubsets(T[] tab) {
+		/*
+		 * Here we need to count max of our interval.
+		 * Then we will know that we must go through
+		 * all of the binary representations of numbers
+		 * from '<0,max>' range (What for? I will explain
+		 * later).
+		 */
+		int max = (int)Math.pow(2, tab.length)-1;
+		for(int i=0; i<=max; i++) {
+			List<T> subset = new ArrayList<>();
+			char[] binaryTab = Integer.toBinaryString(i).toCharArray();
+			for(int j=(binaryTab.length-1); j>=0; j--) {
+				if(binaryTab[j]=='1') subset.add(tab[binaryTab.length-1-j]);
+			}
+			this.subsets.add(subset);
+		}
+	}
+	
+	/*
+	 * Just getter and setter
+	 */
+	public List<List<T>> getSubsets() {
+		return this.subsets;
+	}
+
+	public void setSubsets(List<List<T>> subsets) {
+		this.subsets = subsets;
+	}
+}
+
+/*
+ * Now some explanation may be needed - what actually are
+ * we doing inside 'searchSubsets' method? 
+ * We look at our input table 'tab' and create it's 'binary
+ * sibling'. For example:
+ * tab: [  1  ,  2  ,  4  ,  6  ,  8  ,  9  ]
+ * bin: [ 0|1 , 0|1 , 0|1 , 0|1 , 0|1 , 0|1 ]
+ * 
+ * As You can see, in our 'binary sibling' every element
+ * of our input table may get equivalent of '0' or '1'.
+ * So, to the point - what we do is we iterate through 
+ * every possible combination of binary number that we
+ * can create having 'tab.length' number of bits. 
+ * 
+ * Now take a look how these combinations may help us 
+ * create our Subsets list:
+ * tab: [  1  ,  2  ,  4  ,  6  ,  8  ,  9  ]
+ * bin: [  0  ,  1  ,  0  ,  1  ,  0  ,  0  ]
+ * What we do is we take only tab elements which have
+ * equivalent of '1' in our 'binary sibling'. Above
+ * combination will provide us Subset of {2,6}.
+ * 
+ * Now, can You see that all binary combinations for
+ * 'tab.length' number of bits will deliver all
+ * Subsets for tab elements? Just think about it!
+ * 
+ * Okay, somewhere at the beginning of this code I wrote that
+ * I will explain what this 'max' variable is for.
+ * Well, I won't do it. 
+ * Also, I must admit that I lied to You a bit in my 
+ * explanation...
+ * Am I really always operating on 'binary siblings' which 
+ * are of the same length as 'tab'? What does the length 
+ * of 'binaryTab' depend on? How am I looking for certain 
+ * elements that create Subsets? And why the hell do I need 
+ * this 'max' variable?
+ * I leave it for You.
+ */
+
+
+public class Test {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Integer[] tabInt = {1,2,3,5,7};
+		AllSetSubsets<Integer> tabIntSubsets = new AllSetSubsets<>();
+		tabIntSubsets.searchSubsets(tabInt);
+		/*
+		 * As You can see, our Implementation might be a great
+		 * opportunity to practise Java 'functional' abilities
+		 * with 'streams' (if You aren't familiar with the idea
+		 * of 'streams' in Java, please check out my resources
+		 * named: 'Lambdas' and 'Streams').
+		 * 
+		 * In this example I sort Subsets by their sizes, then
+		 * I filter Subsets by leaving only these containing less 
+		 * than 3 elements and simply print chosen elements on 
+		 * the Console.
+		 * '[]' stands for an empty element
+		 */
+		tabIntSubsets.getSubsets().stream().
+				sorted((el1, el2)-> Integer.compare(el1.size(),(el2.size()))).
+				filter( el -> el.size() < 3).
+				forEach(System.out::println);
+	}
+
+}
