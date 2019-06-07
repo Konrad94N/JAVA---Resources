@@ -1,0 +1,181 @@
+     /*
+		 * First of all: If You don't know 'Lambdas' in Java, You 
+		 * should at first visit my resource called 'Lambdas'.
+		 * Otherwise it is going to be very, very hard for You
+		 * to understand what is going on here.
+		 * 
+		 * Now, to the point: STREAMS! - one of my personal
+		 * favorite among functionalities in Java. It wouldn't be 
+		 * fair to say that the idea of Streams comes from 
+		 * Java language - it is just Java's variation about
+		 * functional programming.
+		 * 
+		 * Apart from all of functional programming details -
+		 * we may say, that it is the type of programming that 
+		 * focuses on 'what is going on' with the data rather 
+		 * than 'what is' the data. Such approach may appear
+		 * extremely handy in many situations:
+		 * 
+		 * 1) By its definition - functional code sholdn't 
+		 * 	  have any influence on the data it is processing.
+		 * 	  Therefore it is perfect for creating testing 
+		 * 	  environment cause we can model certain behavior 
+		 * 	  without spoiling valuable data.
+		 * 
+		 * 2) Functional programming also allows very easy
+		 * 	  way to combine different functions together by
+		 * 	  processing the data and passing the result of 
+		 * 	  a process.
+		 * 
+		 * 3) It may save some processing time cause functional
+		 * 	  programming is lazy. If it doesn't have to process
+		 * 	  some of the data - it probably just won't.
+		 * 
+		 * In case You wanna dig deeper into functional
+		 * programming - simply try to search for anything
+		 * on the internet. There are thousands of articles,
+		 * books and sites explaining this area of programming
+		 * in detail. Here is where You can easily start:
+		 * https://www.keycdn.com/blog/functional-programming
+		 * 
+		 * Okay, it is high time we saw some examples. Take a 
+		 * look at the code below:
+     */
+		
+		List<String> teamsList = Arrays.asList("Golden State Warriors",
+												"Houston Rockets",
+												"Toronto Raptors",
+												"Oklahoma City Thunder",
+												"Milwaukee Bucks");
+		
+		/*
+		 * Now I want to print on the Console all of the Teams 
+		 * that have less than 3 words in it's name, contain 'R'
+		 * and have total length bigger than 12.
+		 */
+		
+		System.out.println("Arrow Anti-Pattern:");
+		for(String team:teamsList) {
+			if(team.split(" ").length < 3) {
+				if(team.contains("R")) {
+					if(team.length() > 12) {
+						System.out.println(team);
+					}
+				}
+			}
+		}
+		
+		/*
+		 * Such structure has a perfectly fitting name:
+		 * --> Arrow Anti-Pattern <--.
+		 * It looks like an arrow, isn't it? It is pretty
+		 * good approach to avoid such condition-nesting inside
+		 * our code, especially when we have such a great tool
+		 * like Steams in our arsenal.
+		 */
+		
+		System.out.println("\nStreams:");
+		teamsList.stream().filter(s -> s.split(" ").length < 3).
+						   filter(s -> s.contains("R")).
+						   filter(s -> s.length() > 12).
+						   forEach(System.out::println);
+		
+		/*
+		 * What You can clearly see now is that we use Lambdas 
+		 * to 'describe' what we wanna do with our data. 
+		 * For example 's -> s.contains("R")' resembles the
+		 * 'if(team.contains("R")' condition. 
+		 * 
+		 * Also, probably, the more You know about streams 
+		 * the more You realize that these are dedicated for
+		 * Collections, right? Just take a look: we take some
+		 * Collection and process it's data one by one.
+		 * 
+		 * But wait - we just said at the very beginning that
+		 * 'functional programming', by definition, doesn't 
+		 * influence the actual data it is processing.
+		 * This leads us to the conclusion that because 
+		 * streams don't change anything in the data they are 
+		 * processing, they need some kind of mechanism of 
+		 * passing the processed data - otherwise all the 
+		 * results would have been lost every single time.
+		 * 
+		 * It is not my intention to show You every little
+		 * feature that Streams have to offer, so I will
+		 * only present You some possibilities of its use.
+		 * For more details, please, check out the official
+		 * documentation: 
+		 * https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+		 * 
+		 * And now we can go on to some more interesting examples.
+		 */
+		
+		System.out.println("\n\nExamples");
+		List<String> randomWords = Arrays.asList("Balloon",
+												"Armchair",
+												"2x Car",
+												"0 pH",
+												"November",
+												"Sky",
+												"Some long string we won't see in results",
+												"Longsword");
+		System.out.println("\nOur basic collection:\n"+randomWords+"\n");
+		/*
+		 * 1 Example
+		 * We don't pass the results to any variable or to outputStream,
+		 * so the result of our process will be lost.
+		 */
+		System.out.println("The result isn't passed anywhere:");
+		randomWords.stream().filter(s -> s.length() < 15).
+							map(s -> s.toUpperCase()).
+							sorted();
+		/*
+		 * 2 Example
+		 * We print the results on the Console - first method
+		 * to pass the results.
+		 */
+		System.out.println("\nThe result is printed on the Console:");
+		randomWords.stream().filter(s -> s.length() < 15).
+							map(s -> s.toUpperCase()).
+							sorted().
+							forEach(System.out::println);
+		/*
+		 * 3 Example
+		 * We assign the result to other variable - second 
+		 * method to pass the results.
+		 * In our case we choose 'int', but depending on the 
+		 * specifics of the process we can easily assign
+		 * the result to any other Java Type.
+		 */
+		System.out.println("\nThe result is assigned to certain variable:");
+		int result = randomWords.stream().filter(s -> s.length() > 8).
+										mapToInt(s -> s.length()).
+										sum();
+		System.out.println("Result: "+result);
+		/*
+		 * At the end I just want to prove You that after all
+		 * of the above actions our basic collection still
+		 * remained untouched.
+		 */
+		System.out.println("\nThe basic collection after all of the processign:"+"\n"+randomWords);
+		
+		/*
+		 * Last but not least, three brief pieces of advise which
+		 * may help You use Streams more effectively:
+		 * 
+		 * 1) Filter first - just like I said at the very beginning,
+		 * 	  streams are lazy. The more You will filter at the 
+		 * 	  beginning, the less will be there to process at the 
+		 * 	  end.
+		 * 
+		 * 2) Avoid overcomplicated Lambdas - keep them simple.
+		 * 
+		 * 3) Don't overuse Streams - it seems very appealing
+		 * 	  to use streams all the time and forget the loops, 
+		 * 	  but just like with every new functionality we learn 
+		 * 	  it is good to remember, that this is just another
+		 * 	  tool to help us solve our programming problems. 
+		 * 	  The biggest challenge during learning process is 
+		 * 	  to always match the issue with the perfect tool 
+		 * 	  for fixing it, not the other way around.
+		 */
