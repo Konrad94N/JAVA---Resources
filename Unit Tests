@@ -1,6 +1,6 @@
 /*
 Here I will present some basics of testing by using 'assertions'. This topic will most likely be developed in the future
-(annotations, best practices etc).
+(annotations, methods, automations, best practices etc).
 I am already starting to write it using chapters to make it more easy to read when it grows in lines.
 */
 
@@ -20,7 +20,7 @@ than 1000 or more), but also to reuse majority of our tests in the future, when 
 2) Bases of using JUnit and Assertions
 
 So now the fun begins, how does basic testing look like in the code?
-First thing You got to get familiar with is Library called JUnit (You can either download it or add as a dependency to Your 
+At first You got to get familiar with Library called JUnit (You can either download it or add as a dependency to Your 
 project - it is essential for our purpose. Details might be check out here: https://junit.org). This library contains set of 
 'Assertions' which are an amazing tool for simplifying testing process. I will give You an example on how some basic testing 
 code looks like and then I will break it down into pieces to decribe each one of them.
@@ -35,7 +35,7 @@ public class Assertions {
         int var2 = 2;
         int var3 = 3;
 
-        assertNotEquals(var1, var2);
+        assertEquals(var1, var3);
 
         assertTrue(var1 < var2);
     }
@@ -53,16 +53,49 @@ public class MainTest {
 It is as simple as this! Right now I just want to mention that testing code snippets are usually placed in specific 'test' 
 folder in our project tree. It is very convenient to separate tests from actual programm/application at the early stage.
 
-Back to the code - we can distinguish few elements in the above code:
+Back to the code - we can distinguish few elements in the above snippet:
  I)   Assertions class
- II)  @Test annotation
- III) Asserting methods (assertNotEquals, assertTrue)
+ II)  Asserting methods (assertNotEquals, assertTrue)
+ III) @Test annotation
  IV)  Main class triggering the Assertion
  
 I) Assertion class
-This is main class containing assertions (testing) connected with specific 'unit'. For example if we create class 'Calc' with
-different methods, like: add, sub, split etc., we will probably create assertion class for each one 
+This is main class containing assertions (tests) connected with specific group of our choice. For example: in our project
+we have class called 'Calc' containing calculating methods (might be for accounting purposes). We should keep all of our
+asserting methods for this class in one 'MainTestingClass' (something like CalcTest, CalcAssertions etc.)
 
+II) Asserting methods (assertEquals, assertTrue)
+These are methods provided by 'JUnit' library by importing 'static org.junit.Assert.*'. These are only examples, but there is
+a lot more to explore in this Library - at this point we want to keep it easy and simple, so just to give You overall idea
+on how it is working, I am giving You these two methods.
+
+assertEquals(var1, var2) - checks if given arguments are equal
+assertTrue(var1 < var2) - checks if given 'bool' condition is true
+
+See how simple it is?
+
+III) @Test annotation
+At first You need to know that it is not the only annotation we can use, but again - in this chapter we are just scratching 
+the surface of the power behind JUnit.
+This particular annotation is very important as it basically informs that method written under it is a testing method 
+(assertTests() in our case). In our Testing class we can have as many methods with @Test annotation above them, as we want. 
+It is a good practice to name these methods clearly. 
+
+Using the example from point 'II' - lets say that in our 'Calc' class we've implemented few methods named: net, gross, discount. 
+It would be very unclear if we would test these functionalities in testing methods: test1, test2 and test3. It is much easier
+to reuse our tests and keep the code clean by using more appropriate names, like: netTest, grossTest, discountTest etc.
+
+There are other annotations available (@Before, @After and more) which give us some sort of control over the life-cycle of our 
+test. Using them we can provide initiating certain variables before the proper testing (@Test annotated methods) have started
+or clean up the mess after testing is done.
+
+IV) Main class triggering the Assertion
+Not the only way to trigger Asserting classes/methods, but probably the easiest one - simply call the method(s) from Assertion
+class. If there is any Error - testing is not passed. If programm finished its work without any Error - testing is passed.
+EASY!
+
+It is worth mentioning that not always we want to test if some variables are equal or if some condition is true. Sometimes 
+we might need to check if something if different or false - such Test is also possible with JUnit functionalities.
 
 
 
