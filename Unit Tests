@@ -6,18 +6,18 @@ I am already starting to write it using chapters to make it more easy to read wh
 
 First of all we all have to be aware how important testing is - it may save us a lot of trouble (and money) at the very early 
 stage of our project. 
-Being into programming for a while You will eventually hear about UnitTest - so, what are they? We could say that UnitTest
+Being into programming for a while You will eventually hear about UnitTests - so, what are they? We could say that UnitTests
 represent specific approach to software testing, where we split our code into smaller pieces (classes, methods etc.) and 
 test these pieces separately. Conducting our tests using this method allows us not only to have better control over the
 result (it is easier to figure out what was wrong and do the improvement when we have 100 lines of code rather
 than 1000 or more), but also to reuse majority of our tests in the future, when our software/application will be developed 
-(we will have create/recreate test only for new/updated 'units').
+(we'll have to create/recreate UnitTests only for new/updated 'units').
 
 So now the fun begins, how does basic testing look like in the code?
-First thing You got to get familiar with is Library called JUnit (You can either download it or add as a dependency to Your project
-- it is essential for our purpose. Details might be check out here: https://junit.org). This library contains set of 'Assertions' 
-which are an amazing tool for simplifying testing process. I will give You an example on how some basic testing code looks like 
-and then I will break it down into pieces to decribe each one of them.
+First thing You got to get familiar with is Library called JUnit (You can either download it or add as a dependency to Your 
+project - it is essential for our purpose. Details might be check out here: https://junit.org). This library contains set of 
+'Assertions' which are an amazing tool for simplifying testing process. I will give You an example on how some basic testing 
+code looks like and then I will break it down into pieces to decribe each one of them.
 
 ----------------------------------------------------------------------
 
@@ -44,7 +44,10 @@ public class MainTest {
 
 ----------------------------------------------------------------------
 
-It is as simple as this! 
+It is as simple as this! Right now I just want to mention that testing code snippets are usually placed in specific 'test' 
+folder in our project tree. It is very convenient to separate tests from actual programm/application at the early stage.
+
+Back to the code - we can 
 
 
 
