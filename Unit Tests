@@ -4,6 +4,9 @@ Here I will present some basics of testing by using 'assertions'. This topic wil
 I am already starting to write it using chapters to make it more easy to read when it grows in lines.
 */
 
+*****************************************************************************************************************************
+1) Introduction
+
 First of all we all have to be aware how important testing is - it may save us a lot of trouble (and money) at the very early 
 stage of our project. 
 Being into programming for a while You will eventually hear about UnitTests - so, what are they? We could say that UnitTests
@@ -12,6 +15,9 @@ test these pieces separately. Conducting our tests using this method allows us n
 result (it is easier to figure out what was wrong and do the improvement when we have 100 lines of code rather
 than 1000 or more), but also to reuse majority of our tests in the future, when our software/application will be developed 
 (we'll have to create/recreate UnitTests only for new/updated 'units').
+
+*****************************************************************************************************************************
+2) Bases of using JUnit and Assertions
 
 So now the fun begins, how does basic testing look like in the code?
 First thing You got to get familiar with is Library called JUnit (You can either download it or add as a dependency to Your 
@@ -47,7 +53,16 @@ public class MainTest {
 It is as simple as this! Right now I just want to mention that testing code snippets are usually placed in specific 'test' 
 folder in our project tree. It is very convenient to separate tests from actual programm/application at the early stage.
 
-Back to the code - we can 
+Back to the code - we can distinguish few elements in the above code:
+ I)   Assertions class
+ II)  @Test annotation
+ III) Asserting methods (assertNotEquals, assertTrue)
+ IV)  Main class triggering the Assertion
+ 
+I) Assertion class
+This is main class containing assertions (testing) connected with specific 'unit'. For example if we create class 'Calc' with
+different methods, like: add, sub, split etc., we will probably create assertion class for each one 
+
 
 
 
