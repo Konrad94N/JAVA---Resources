@@ -14,3 +14,37 @@ than 1000 or more), but also to reuse majority of our tests in the future, when 
 (we will have create/recreate test only for new/updated 'units').
 
 So now the fun begins, how does basic testing look like in the code?
+First thing You got to get familiar with is Library called JUnit (You can either download it or add as a dependency to Your project
+- it is essential for our purpose. Details might be check out here: https://junit.org). This library contains set of 'Assertions' 
+which are an amazing tool for simplifying testing process. I will give You an example on how some basic testing code looks like 
+and then I will break it down into pieces to decribe each one of them.
+
+----------------------------------------------------------------------
+
+public class Assertions {
+
+    @Test
+    public static void assertTests(){
+        int var1 = 1;
+        int var2 = 2;
+        int var3 = 3;
+
+        assertNotEquals(var1, var2);
+
+        assertTrue(var1 < var2);
+    }
+}
+
+
+public class MainTest {
+    public static void main(String[] args){
+        Assertions.assertTests();
+    }
+}
+
+----------------------------------------------------------------------
+
+It is as simple as this! 
+
+
+
