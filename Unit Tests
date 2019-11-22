@@ -4,3 +4,13 @@ Here I will present some basics of testing by using 'assertions'. This topic wil
 I am already starting to write it using chapters to make it more easy to read when it grows in lines.
 */
 
+First of all we all have to be aware how important testing is - it may save us a lot of trouble (and money) at the very early 
+stage of our project. 
+Being into programming for a while You will eventually hear about UnitTest - so, what are they? We could say that UnitTest
+represent specific approach to software testing, where we split our code into smaller pieces (classes, methods etc.) and 
+test these pieces separately. Conducting our tests using this method allows us not only to have better control over the
+result (it is easier to figure out what was wrong and do the improvement when we have 100 lines of code rather
+than 1000 or more), but also to reuse majority of our tests in the future, when our software/application will be developed 
+(we will have create/recreate test only for new/updated 'units').
+
+So now the fun begins, how does basic testing look like in the code?
